@@ -1,0 +1,77 @@
+/* =========================================================
+   MyKredit — admin palette override
+   Loaded AFTER theme.css on admin/*.php pages only. Redefines
+   the same CSS custom properties theme.css's shared components
+   (.surface, .btn-*, .badge-*, .nav-link, .field, etc.) already
+   read from — so every admin page inherits a "control panel"
+   palette (cool neutrals + steel blue) without touching a single
+   HTML class or PHP line. main/ pages never load this file, so
+   the customer-facing cream/copper theme is completely unaffected.
+   ========================================================= */
+
+:root {
+    --cream:          #F2F4F6;
+    --paper:           #FFFFFF;
+    --paper-alt:       #E8ECEF;
+
+    --charcoal:        #191B1D;
+    --charcoal-soft:   #232527;
+
+    --ink:             #1B1F23;
+    --ink-soft:        #5B6470;
+    --ink-faint:       #97A1AB;
+
+    --line:            #E1E5E9;
+    --line-strong:     #CBD2D9;
+
+    --sidebar-ink:     #E7E9EB;
+    --sidebar-muted:   #888F97;
+
+    --accent:          #3E6B8F;
+    --accent-rgb:      62,107,143;
+    --accent-dark:     #2F5470;
+    --accent-soft:     #DCE7ED;
+    --accent-soft-ink: #1F425A;
+
+    /* --danger / --danger-soft intentionally left as-is: a semantic
+       safety color for destructive actions, not part of the brand accent. */
+}
+
+/* =========================================================
+   Subtle depth accents — admin only.
+   A restrained, directional-light language: one soft shadow cast
+   the way real light falls (down, short, low-opacity), never a
+   blur on every side. No neumorphism (paired light/dark shadows
+   on a matching background), no glass/blur, no rainbow gradients,
+   no 3D icon packs. Apply sparingly — one priority stat, one set
+   of primary actions — never stacked on every element of a page.
+   ========================================================= */
+
+/* The one stat that matters most on the page: lifted just slightly
+   off the flat strip beside it. Shadow falls only downward, and the
+   bottom edge reads a shade darker than the other three sides —
+   together they read as a hair of material thickness, not a card
+   floating in space. */
+.stat-priority {
+    position: relative;
+    box-shadow: 0 4px 12px -4px rgba(25, 27, 29, .14);
+    border-bottom: 2px solid var(--line-strong);
+}
+
+/* A real button, not a glossy render: rests a touch "up", presses
+   down and flattens under the pointer. Shadow shrinks to nothing on
+   press rather than just darkening, so the motion reads as physical. */
+.btn-pressable {
+    position: relative;
+    box-shadow: 0 2px 0 rgba(25, 27, 29, .16);
+    transition: transform .1s ease, box-shadow .1s ease,
+                background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+.btn-pressable:hover { transform: translateY(-1px); }
+.btn-pressable:active { transform: translateY(1px); box-shadow: 0 0 0 rgba(25, 27, 29, 0); }
+
+/* The one "hero" figure on a report page — a single hairline-light
+   highlight just under the glyphs, the way raised type on paper
+   catches light. Use on at most one number per page; never stack
+   with colored text or it reads as mud instead of a highlight. */
+.figure-raised { text-shadow: 0 1px 0 rgba(255, 255, 255, .7); }

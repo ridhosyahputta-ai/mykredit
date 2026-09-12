@@ -1,0 +1,12 @@
+# Database credentials — copy conn.example.php to conn.php and fill in locally
+conn.php
+
+# User-uploaded content (profile photos, payment proofs, vehicle images)
+uploads/
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db
+
+# Claude Code tooling/skill data — not part of the app
+.claude/

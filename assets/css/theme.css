@@ -1,0 +1,211 @@
+/* =========================================================
+   MyKredit — shared design system
+   Used by every page in main/ (and can be reused by admin/).
+   Palette: deep charcoal + burnt copper accent, serif/sans pairing.
+   ========================================================= */
+
+:root {
+    --cream:          #FAF7F1;
+    --paper:           #FFFFFF;
+    --paper-alt:       #F1EDE4;
+
+    --charcoal:        #17140F;
+    --charcoal-soft:   #211C15;
+
+    --ink:             #1C1912;
+    --ink-soft:        #6E6659;
+    --ink-faint:       #A79E8E;
+
+    --line:            #E6E1D6;
+    --line-strong:     #D6CFC0;
+
+    --sidebar-ink:     #EDE8DD;
+    --sidebar-muted:   #948B7C;
+
+    --accent:          #B5652C;
+    --accent-rgb:      181,101,44;
+    --accent-dark:     #8F4E22;
+    --accent-soft:     #F3E4D2;
+    --accent-soft-ink: #7A431C;
+
+    --danger:          #B24B3C;
+    --danger-soft:     #F4DFDA;
+
+    --radius:          14px;
+    --radius-sm:       8px;
+    --radius-lg:       18px;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body {
+    background: var(--cream);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+.font-display { font-family: 'Fraunces', serif; }
+.tabular { font-variant-numeric: tabular-nums; }
+
+::selection { background: var(--accent); color: #fff; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ---------- Sidebar ---------- */
+.app-sidebar { background: var(--charcoal); }
+
+.logo-mark {
+    background: var(--accent);
+    color: var(--charcoal);
+    font-family: 'Fraunces', serif;
+    line-height: 1;
+}
+
+.nav-link {
+    color: var(--sidebar-muted);
+    border-left: 2px solid transparent;
+    transition: color .15s ease, background-color .15s ease, border-color .15s ease;
+}
+.nav-link i { color: var(--sidebar-muted); transition: color .15s ease; }
+.nav-link:hover { color: var(--sidebar-ink); background: rgba(255,255,255,.035); }
+.nav-link:hover i { color: var(--sidebar-ink); }
+.nav-link.active {
+    color: var(--sidebar-ink);
+    background: rgba(var(--accent-rgb),.14);
+    border-left-color: var(--accent);
+}
+.nav-link.active i { color: var(--accent); }
+
+/* Sidebar item for a planned-but-not-yet-built page: stays visible (so the
+   menu communicates what's coming) but is inert — no hover lift, no click. */
+.nav-link.disabled { opacity: .45; cursor: not-allowed; }
+.nav-link.disabled:hover { color: var(--sidebar-muted); background: none; }
+.nav-link.disabled:hover i { color: var(--sidebar-muted); }
+
+.overlay-scrim { background: rgba(23,20,15,.6); }
+
+/* ---------- Surfaces ---------- */
+.surface {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+/* Stat strip: single card, internal hairline dividers, no seams on wrap */
+.stat-grid > div {
+    border-color: var(--line);
+    border-style: solid;
+    border-width: 0;
+}
+.stat-grid > div:not(:nth-child(2n)) { border-right-width: 1px; }
+.stat-grid > div:nth-child(-n+2) { border-bottom-width: 1px; }
+@media (min-width: 1024px) {
+    .stat-grid > div { border-bottom-width: 0 !important; border-right-width: 1px; }
+    .stat-grid > div:last-child { border-right-width: 0; }
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-dark); }
+
+.btn-ghost { background: transparent; border: 1px solid var(--line-strong); color: var(--ink); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent-dark); }
+
+.btn-dark { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.12); }
+.btn-dark:hover { background: rgba(255,255,255,.14); }
+
+/* Reserved for genuinely destructive, irreversible actions (deleting a record) —
+   not for business decisions like rejecting an application, which stays muted. */
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-danger:hover { background: #963C30; }
+
+/* ---------- Badges (status pills) ----------
+   Single-accent system: copper marks the positive/approved state only.
+   Pending and rejected stay within the neutral ink/line palette —
+   no green, no red — so status never introduces a second hue. */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .375rem;
+    border-radius: var(--radius-sm);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: .3rem .6rem;
+    border: 1px solid transparent;
+}
+.badge-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+/* Disetujui / positive — the one place status borrows the accent */
+.badge-approved { background: var(--accent-soft); color: var(--accent-soft-ink); border-color: rgba(var(--accent-rgb),.25); }
+.badge-approved .badge-dot { background: var(--accent); }
+
+/* Menunggu — neutral, informational, not yet decided */
+.badge-pending  { background: var(--paper-alt); color: var(--ink-soft); border-color: var(--line-strong); }
+.badge-pending  .badge-dot { background: var(--ink-faint); }
+
+/* Ditolak — deliberately dim, not alarming */
+.badge-rejected { background: transparent; color: var(--ink-faint); border-color: var(--line); }
+.badge-rejected .badge-dot { background: var(--ink-faint); }
+
+.badge-neutral  { background: var(--paper-alt); color: var(--ink-soft); border-color: var(--line); }
+.badge-neutral  .badge-dot { background: var(--ink-faint); }
+
+/* ---------- Form controls ---------- */
+.field {
+    background: var(--paper-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--ink);
+    transition: border-color .15s ease, background-color .15s ease;
+}
+.field:focus {
+    outline: none;
+    background: var(--paper);
+    border-color: var(--accent);
+}
+.field::placeholder { color: var(--ink-faint); }
+
+/* ---------- Timeline connector (dark panels: modals, hero) ---------- */
+.timeline-line::before {
+    content: ''; position: absolute; left: 11px; top: 24px; bottom: -24px; width: 2px;
+    background-color: rgba(255,255,255,.12); z-index: 0;
+}
+.timeline-item:last-child .timeline-line::before { display: none; }
+
+/* ---------- Underline field (profile-style forms) ---------- */
+.field-line {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--line-strong);
+    color: var(--ink);
+    padding: .625rem .125rem;
+    border-radius: 0;
+    transition: border-color .15s ease;
+}
+.field-line:focus { outline: none; border-bottom-color: var(--accent); }
+.field-line::placeholder { color: var(--ink-faint); }
+
+/* ---------- Toggle switch ---------- */
+.switch { position: relative; display: inline-flex; align-items: center; cursor: pointer; }
+.switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+.switch .track {
+    width: 42px; height: 24px; background: var(--line-strong);
+    border-radius: 999px; transition: background-color .15s ease; position: relative;
+}
+.switch .track::after {
+    content: ''; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px;
+    background: #fff; border-radius: 50%; transition: transform .15s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+.switch input:checked + .track { background: var(--accent); }
+.switch input:checked + .track::after { transform: translateX(18px); }
