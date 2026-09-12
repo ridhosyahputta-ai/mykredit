@@ -1,3 +1,5 @@
+🇬🇧 [Read in English](README.en.md)
+
 # MyKredit
 
 MyKredit itu aplikasi web buat simulasi dan pengajuan kredit kendaraan (motor sama mobil). Jadi nasabah bisa lihat katalog kendaraan, ajukan kredit, bayar cicilan tiap bulan dengan upload bukti transfer, terus admin di belakang yang verifikasi semuanya — mulai dari approve pengajuan, cek bukti bayar, sampai lihat laporan keuangan.
