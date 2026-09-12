@@ -4,7 +4,7 @@ MyKredit itu aplikasi web buat simulasi dan pengajuan kredit kendaraan (motor sa
 
 Dibangun pakai PHP native (bukan framework, murni `mysqli`) dan MySQL. Tampilannya Tailwind CSS lewat CDN, font dari Google Fonts (Fraunces buat heading, Public Sans buat body), ikon pakai Lucide. Gak ada proses build apa-apa, jadi tinggal taruh di folder `htdocs` XAMPP dan langsung jalan.
 
-Project ini awalnya ada banyak bug peninggalan (nama kolom salah, query yang gak match struktur tabel, dll), dan desainnya juga sempat generik banget — khas template AI gitu, emerald-slate standar dengan glassmorphism dan shadow gede-gede di semua elemen. Jadi sebagian besar riwayat kerjaan di project ini ya dua itu: benerin bug satu-satu, sama redesign total biar kelihatan lebih punya identitas. Detailnya di bawah.
+Project ini awalnya ada banyak bug peninggalan (nama kolom salah, query yang gak match struktur tabel, dll), dan desainnya juga sempat generik banget  khas template AI gitu, emerald-slate standar dengan glassmorphism dan shadow gede-gede di semua elemen. Jadi sebagian besar riwayat kerjaan di project ini ya dua itu: benerin bug satu-satu, sama redesign total biar kelihatan lebih punya identitas. Detailnya di bawah.
 
 ## Struktur folder
 
@@ -34,7 +34,7 @@ Ada juga halaman laporan yang ngitung nilai kredit yang masih berjalan, total ci
 
 Ini bagian yang paling panjang ceritanya karena emang paling banyak kejadian. Kebanyakan bug di project ini satu jenis: query SQL yang nyebut nama kolom yang sebenernya gak ada di tabel, atau PK yang disangka `id_transaksi` padahal aslinya cuma `id`. Efeknya biasanya bukan error yang kelihatan, tapi data yang diem-diem selalu nol atau kosong — jadi harus dicek satu-satu ke `kreditku_db.sql` buat tahu nama kolom yang bener.
 
-Yang paling awal ketemu itu di `profil_akun.php`: form edit profil pakai nama field `no_telp`, padahal kolom di tabel `pengguna` namanya `no_hp`. Jadi setiap kali user update nomor HP, query-nya gagal diam-diam dan datanya gak pernah kesimpen. Sekalian pas itu juga ketahuan upload foto profil dan cover sama sekali gak pernah nulis path filenya ke kolom `foto`/`cover` di database — file-nya kesimpen di folder `uploads/`, tapi database-nya gak tahu, jadi setelah refresh fotonya balik ke avatar default lagi.
+Yang paling awal ketemu itu di `profil_akun.php`: form edit profil pakai nama field `no_telp`, padahal kolom di tabel `pengguna` namanya `no_hp`. Jadi setiap kali user update nomor HP, query-nya gagal diam-diam dan datanya gak pernah kesimpen. Sekalian pas itu juga ketahuan upload foto profil dan cover sama sekali gak pernah nulis path filenya ke kolom `foto`/`cover` di database  file-nya kesimpen di folder `uploads/`, tapi database-nya gak tahu, jadi setelah refresh fotonya balik ke avatar default lagi.
 
 Notifikasi juga lumayan berantakan. Tabel `notifikasi` kolom tanggalnya itu `created_at` (otomatis keisi), tapi ada beberapa tempat yang query-nya masih nyebut kolom `tanggal` yang emang gak pernah ada di skema. Terus pas admin approve atau tolak transaksi, ada kode yang insert ke tabel notifikasi tapi lupa isi kolom `judul` — padahal kolom itu `NOT NULL`, jadi insert-nya gagal dan notifikasi buat user gak pernah terkirim.
 
